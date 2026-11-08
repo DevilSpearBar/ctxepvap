@@ -952,12 +952,9 @@ def s9_sunset(c, f, t):
     # title
     t0, t1 = TL.EVENTS['title_in']
     if T >= t0 - 0.05:
-        try:
-            from . import lettering
-            prog = min(1.0, (T - t0) / (t1 - t0))
-            lettering.draw_title(c, W / 2, 205, 104, progress=prog, alpha=1.0, glow=0.65)
-        except Exception:
-            pass
+        from . import lettering
+        prog = min(1.0, (T - t0) / (t1 - t0))
+        lettering.draw_title(c, W / 2, 205, 104, progress=prog, alpha=1.0, glow=0.65)
 
 
 def _sunset_land():

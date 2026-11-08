@@ -123,9 +123,9 @@ if __name__ == '__main__':
     ap.add_argument('--start', type=int, default=0)
     ap.add_argument('--end', type=int, default=TL.N_FRAMES)
     ap.add_argument('--workers', type=int, default=4)
-    ap.add_argument('--crf', type=int, default=18)
+    ap.add_argument('--crf', type=int, default=19)
     ap.add_argument('--out', default=os.path.join(BUILD, 'picture.mp4'))
-    ap.add_argument('--audio', default=os.path.join(BUILD, 'score.wav'))
+    ap.add_argument('--audio', default=os.path.join(BUILD, 'audio.wav'))
     a = ap.parse_args()
     if a.cmd == 'preview':
         preview(a.frames)

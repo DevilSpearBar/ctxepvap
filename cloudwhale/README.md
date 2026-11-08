@@ -7,8 +7,8 @@ and open it in any modern browser (≈42 MB, no network requests).
 
 - 1920×804 (2.39:1), 24 fps, 1440 frames, 60.000 s, stereo 48 kHz
 - Pictures: procedural painting with [skia-python](https://kyamagu.github.io/skia-python/) + numpy
-- Sound: oscillators, noise and filters in numpy/scipy (additive piano, PolyBLEP strings,
-  Karplus–Strong harp, formant choir, synthesized reverb)
+- Sound: oscillators, noise and filters in numpy/scipy (additive piano, band-limited strings,
+  Karplus–Strong harp and pizzicato, formant choir, synthesized hall reverb, true-peak master)
 - Lettering: the title is hand-built brush strokes defined as spline skeletons
 
 ## Story
@@ -28,9 +28,10 @@ Sunset, title.
 | `film/land.py` | Painted hills and grass (strokes), the big tree, swaying foreground blades |
 | `film/whale.py` | The cloud whale (puffs along a spine), eye, strip-warp swimming |
 | `film/girl.py`, `film/girl_closeup.py` | The heroine: cel-shaded side-view rig with poses, straw hat, 3/4 close-up |
-| `film/lettering.py` | Brush-calligraphy title «Облачный кит» drawn from stroke skeletons |
+| `film/lettering.py` | Brush-calligraphy title «Облачный кит» drawn from stroke skeletons, revealed in writing order |
+| `film/_lettering_preview.py` | QA renders of the title (`build/title_*.png`) |
 | `film/shots.py` | The nine shots: cameras, parallax, wind waves, particles; characters animate on twos |
-| `sound/` | Instruments, the waltz score (F major → G major), sound effects, mix & master |
+| `audio/` | Instruments, the waltz score (F major → G major, 3/4 at 90 BPM, cuts on bar lines), sound effects, mix & master, analysis |
 | `render.py` | Previews, parallel frame rendering piped to ffmpeg, audio mux |
 | `build_html.py` | Packs the MP4 into one HTML page (base64 → Blob, no external requests) |
 
@@ -39,7 +40,7 @@ Sunset, title.
 ```sh
 python3 -m venv .venv && .venv/bin/pip install numpy scipy pillow skia-python
 # skia-python needs libEGL/libGL on Linux: apt-get install libegl1 libgl1
-.venv/bin/python -m sound.make                 # build/score.wav (~15 s)
+.venv/bin/python -m audio.make_audio           # build/audio.wav + stems + spectrogram (~11 s)
 .venv/bin/python render.py video --workers 4   # build/picture.mp4 (~2 min on 4 cores)
 .venv/bin/python render.py mux                 # build/cloudwhale.mp4
 .venv/bin/python render.py preview 1400        # build/preview/f1400.jpg (also used as the poster)
